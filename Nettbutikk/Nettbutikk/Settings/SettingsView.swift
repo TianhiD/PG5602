@@ -8,30 +8,17 @@
 import SwiftUI
 
 struct SettingsView: View {
+
+    @ObservedObject var userSettings: UserSettings
+    private let userSettingsRepository = UserSettingsRepository()
+
     var body: some View {
         HStack {
-            Button("Dame") {
-                print("Dame")
-            }
-            Button("Herre") {
-                print("Herre")
-            }
-            Button("Barn") {
-                print("Barn")
-            }
+            SettingsPreferedClothingCategoryCell(
+                selectedClothingCategory: $userSettings.preferedClothingCategory) { clothingCategory in
+                    userSettings.preferedClothingCategory = clothingCategory
+                    userSettingsRepository.save(userSettings: userSettings)
+                }
         }
     }
 }
-
-#Preview {
-    SettingsView()
-}
-
-
-// Storing persistent data
-//
-// * Documents folder
-// * UserDefaults
-// * CoreData / SwiftData
-// * Keychain
-// * AppGroup
