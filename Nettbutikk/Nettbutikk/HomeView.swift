@@ -19,6 +19,19 @@ enum ClothingType: String, CaseIterable, Identifiable {
     case accessories = "Accessories"
     case streetwear = "Streetwear"
 
+
+    var url: URL {
+        switch self {
+            case .klær:
+                return URL.init(string: "https://raw.githubusercontent.com/BeiningBogen/PG5602/refs/heads/master/Nettbutikk/products.json")!
+                
+            case .sko:
+                return URL.init(string: "https://raw.githubusercontent.com/BeiningBogen/PG5602/refs/heads/master/Nettbutikk/sko.json")!
+            
+            default:
+                return URL.init(string: "https://raw.githubusercontent.com/BeiningBogen/")!
+        }
+    }
     
 }
 
@@ -47,8 +60,10 @@ struct HomeView: View {
                     
                     VStack(alignment: .leading) {
                         Text("Kickstart høsten")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
+                            .rainbowStyle()
+//                            .pulseEffect()
+//                            .modifier(RainbowModifier())
+                            
                         
                         Text("Spar opptil 50% på tusenvis av varer")
                             .font(.title)
@@ -56,11 +71,11 @@ struct HomeView: View {
                     .padding(.leading)
                     Spacer()
                     
-                }
+                }.measure()
             }
             .foregroundStyle(.white)
             .frame(height: 160)
-            
+            .measure()
             
             
             ZStack {
@@ -87,9 +102,11 @@ struct HomeView: View {
                     .padding(.leading)
                 }
                 .foregroundStyle(.white)
+                
             }
             
             productCategoryList
+                .measure()
             
             
         }
